@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ejemplo 2</title>
+    </head>
+    <body>
+        <svg id="svg">
+        </svg>
+
+        <script src="js/snap.svg-min.js"></script>
+        <script>
+            var paper = Snap("#svg");
+
+            var e = paper.ellipse(150,150, 80,80);
+            e.attr({stroke: '#000', 'strokeWidth': 2, fill: '#f50', 'opacity': 0.8 });
+
+            e.animate({cx:"500"}, 1000);
+
+            e.animate({fill:"#00f"}, 3000);
+
+            e.animate({rx:"200"}, 5000, mina.elastic);
+
+        </script>
+    </body>
+</html>

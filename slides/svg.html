@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>SVG y librerías JS, por jsmanrique para EscuelaIT</title>
+
+        <meta name="description" content="Presentación realizada por Manrique (@jsmanrique) para el curso de EscuelaIT sobre SVG (Scalable Vector Graphics) y librerías Javascript para generarlos y manipularlos">
+        <meta name="author" content="Manrique Lopez (jsmanrique@gmail.com)">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="revealjs/css/reveal.min.css">
+
+        <link rel="stylesheet" href="revealjs/css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="revealjs/lib/css/zenburn.css">
+
+        <!-- font-awesome -->
+        <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="revealjs/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        <style>
+            .row {
+                display: table;
+                text-align: center;
+                margin: 50px auto;
+            }
+            .col {
+                display: table-cell;
+                width: 210px;
+                vertical-align: middle;
+            }
+            .reveal .fa {
+                font-family: 'FontAwesome';
+            }
+            .green {
+                color: green;
+            }
+            .red {
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1><abbr title="Scalable Vector Graphics" lang="en">SVG</abbr></h1>
+                    <h2><abbr>SVG</abbr> y librerías Javascript para edición y manipulación</h2>
+                    <p>by <a href="http://twitter.com/jsmanrique">@jsmanrique</a> for <a href="http://escuela.it">EscuelaIT</a></p>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>¿Qué es <abbr>SVG</abbr>?</h1>
+                        <ul>
+                            <li class="fragment">¿Un formato gráfico? <span class="fragment"><i class="fa fa-check green"></i></span></li>
+                            <li class="fragment">¿Un tipo de fichero XML? <span class="fragment"><i class="fa fa-check green"></i></span></li>
+                            <li class="fragment">¿Un estándar de W3C? <span class="fragment"><i class="fa fa-check green"></i></span></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Definición</h2>
+                        <blockquote><abbr>SVG</abbr> es un <strong>lenguaje</strong> para describir <strong>gráficos bidimensionales</strong> en <strong>XML</strong>. <abbr>SVG</abbr> permite <strong>tres tipos de objetos gráficos: formas gráficas vectoriales, imágenes y textos</strong>.
+                        </blockquote>
+                    </section>
+                    <section>
+                        <h2>Pros y contras de <abbr>SVG</abbr></h2>
+                        <ul>
+                            <li>Pros <i class="fa fa-thumbs-o-up"></i>
+                                <ul>
+                                    <li>Gráficos independientes de la resolución</li>
+                                    <li>Ficheros relativamente pequeños</li>
+                                    <li>Reducción de peticiones <abbr title="" lang="en">HTTP</abbr></li>
+                                    <li>Acceso a través del <abbr title="Document Objetc Model" lang="en">DOM</abbr> a los nodos que forman el fichero</li>
+                                </ul>
+                            </li>
+                            <li class="fragment">Contras <i class="fa fa-thumbs-o-down"></i>
+                                <ul>
+                                    <li>No es adecuado para imágenes <em>"complejas"</em></li>
+                                    <li>Soporte relativo en navegadores antiguos de escritorio</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Soporte actual (3-jun-2014)</h2>
+                        <img src="images/soporte.jpg">
+                    </section>
+
+                    <section>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <title>HTML5 Logo</title>
+                            <polygon fill="#E44D26" points="107.644,470.877 74.633,100.62 437.367,100.62 404.321,470.819 255.778,512"/>
+                            <polygon fill="#F16529" points="256,480.523 376.03,447.246 404.27,130.894 256,130.894"/>
+                            <polygon fill="#EBEBEB" points="256,268.217 195.91,268.217 191.76,221.716 256,221.716 256,176.305 255.843,176.305 142.132,176.305 143.219,188.488 154.38,313.627 256,313.627"/>
+                            <polygon fill="#EBEBEB" points="256,386.153 255.801,386.206 205.227,372.55 201.994,336.333 177.419,336.333 156.409,336.333 162.771,407.634 255.791,433.457 256,433.399"/>
+                            <path d="M108.382,0h23.077v22.8h21.11V0h23.078v69.044H152.57v-23.12h-21.11v23.12h-23.077V0z"/>
+                            <path d="M205.994,22.896h-20.316V0h63.72v22.896h-20.325v46.148h-23.078V22.896z"/>
+                            <path d="M259.511,0h24.063l14.802,24.26L313.163,0h24.072v69.044h-22.982V34.822l-15.877,24.549h-0.397l-15.888-24.549v34.222h-22.58V0z"/>
+                            <path d="M348.72,0h23.084v46.222h32.453v22.822H348.72V0z"/>
+                            <polygon fill="#FFFFFF" points="255.843,268.217 255.843,313.627 311.761,313.627 306.49,372.521 255.843,386.191 255.843,433.435 348.937,407.634 349.62,399.962 360.291,280.411 361.399,268.217 349.162,268.217"/>
+                            <polygon fill="#FFFFFF" points="255.843,176.305 255.843,204.509 255.843,221.605 255.843,221.716 365.385,221.716 365.385,221.716 365.531,221.716 366.442,211.509 368.511,188.488 369.597,176.305"/>
+                        </svg>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Elementos</h2>
+                        <ul>
+                            <li>Formas gráficas vectoriales (básicas)</li>
+                            <li>Formas gráficas vectoriales (<em lang="en">paths</em>)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Formas gráficas vectoriales (básicas): rectángulos</h3>
+                        <pre><code data-trim>
+&lt;svg height="180" width="180"&gt;
+    &lt;rect width="180" height="180" fill="rgb(234,234,234)"
+    stroke-width="1" stroke="rgb(0,0,0)"/&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg height="180" width="180">
+                              <rect width="180" height="180"  fill="rgb(234,234,234)" stroke-width="1" stroke="rgb(0,0,0)"/>
+                            </svg>
+                    </section>
+                    <section>
+                        <h3>Formas gráficas vectoriales (básicas): círculos</h3>
+                        <pre><code>
+&lt;svg height="180" width="180"&gt;
+    &lt;circle cx="90" cy="90" r="90"
+    fill="rgb(234,234,234)"
+    stroke-width="1" stroke="rgb(0,0,0)"/&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg height="180" width="180">
+                              <circle cx="90" cy="90" r="90" fill="rgb(234,234,234)" stroke-width="1" stroke="rgb(0,0,0)"/>
+                        </svg>
+                    </section>
+                    <section>
+                        <h3>Formas gráficas vectoriales (básicas): elipses</h3>
+                        <pre><code data-trim>
+&lt;svg height="100" width="200"&gt;
+    &lt;ellipse cx="100" cy="50" rx="100" ry="50"
+    fill="rgb(234,234,234)"
+    stroke-width="1" stroke="rgb(0,0,0)"/&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg height="100" width="200">
+                              <ellipse cx="100" cy="50" rx="100" ry="50" fill="rgb(234,234,234)" stroke-width="1" stroke="rgb(0,0,0)"/>
+                        </svg>
+                    </section>
+                    <section>
+                        <h3>Formas gráficas vectoriales (básicas): Líneas</h3>
+                        <pre><code data-trim>
+&lt;svg height="180" width="180"&gt;
+    &lt;line x1="20" y1="20" x2="180" y2="180"
+    stroke-width="1" stroke="rgb(0,0,0)"/&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg height="180" width="180">
+                              <line x1="20" y1="20" x2="180" y2="180" stroke-width="1" stroke="rgb(0,0,0)"/>
+                            </svg>
+                    </section>
+                    <section>
+                        <h3>Formas gráficas vectoriales (básicas): Polilíneas</h3>
+                        <pre><code data-trim>
+&lt;svg height="150" width="200"&gt;
+    &lt;polyline points="0,0 200,0 110,70 200,100 140,150"
+    fill="rgb(255,255,255)" stroke-width="1" stroke="rgb(0,0,0)"/&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg height="150" width="200">
+                              <polyline points="0,0 200,0 110,70 200,100 140,150" fill="rgb(255,255,255)" stroke-width="1" stroke="rgb(0,0,0)"/>
+                        </svg>
+                    </section>
+                    <section>
+                        <h3>Formas gráficas vectoriales (básicas): Polígonos</h3>
+                        <pre><code data-trim>
+&lt;svg height="200" width="200"&gt;
+    &lt;polygon points="20,0 180,0 120,100, 180,200, 20,200 80,100"
+    fill="rgb(234,234,234)" stroke-width="1" stroke="rgb(0,0,0)"/&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg height="200" width="200">
+                            <polygon points="20,0 180,0 120,100, 180,200, 20,200 80,100" fill="rgb(234,234,234)" stroke-width="1" stroke="rgb(0,0,0)"/>
+                        </svg>
+                    </section>
+                    <section>
+                        <h3>Formas gráficas vectoriales (<em lang="en">paths</em>)</h3>
+                        <pre><code data-trim>
+&lt;svg&gt;
+    &lt;path d="M50,50
+             A30,30 0 0,1 35,20
+             L100,100
+             M110,110
+             L100,0"
+          style="stroke:#b50; fill:none;"/&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <path d="M50,50
+                                        A30,30 0 0,1 35,20
+                                        L100,100
+                                        M110,110
+                                        L100,0"
+                                        style="stroke:#b50; stroke-width: 4; fill:none;"/>
+                        </svg>
+                    </section>
+                    <section>
+                        <h4>Comandos</h4>
+                            <pre>
+M: move to
+L: line to
+H: horizontal line to
+V: vertical line to
+C: curve to
+S: Smooth curve to
+Q: quadratic Bézier curve
+T: smooth quadratic Bézier curve
+A: elliptical Arc
+Z: closepath
+
+Mayúsculas: Posiciones absolutas
+Minúsculas: Posiciones relativas
+                            </pre>
+                    </section>
+                    <section>
+                        <h3>Textos</h3>
+                        <pre><code>
+&lt;svg&gt;
+    &lt;text x="20" y="40"
+        style="fill: #000000; stroke: none; font-size: 48px;"&gt;
+        Lleno
+    &lt;/text&gt;
+    &lt;text x="20" y="100"
+        style="fill: none; stroke: #000000;  font-size: 48px;"&gt;
+        Sólo el borde
+    &lt;/text&gt;
+    &lt;text x="20" y="150"
+        style="fill: #999999; stroke: #000000;  font-size: 48px;"&gt;
+        Relleno y borde
+    &lt;/text&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg>
+                            <text x="20" y="40"
+      style="fill: #000000; stroke: none; font-size: 48px;">
+    Lleno
+</text>
+<text x="20" y="100"
+      style="fill: none; stroke: #000000;  font-size: 48px;">
+    Sólo el borde
+</text>
+<text x="20" y="150"
+      style="fill: #999999; stroke: #000000;  font-size: 48px;">
+    Relleno y borde
+</text>
+                        </svg>
+                    </section>
+                    <section>
+                        <h4>Textos en un path!</h4>
+                        <pre><code>
+&lt;svg&gt;
+    &lt;defs&gt;
+        &lt;path id="camino"
+            d="M75,20 l100,0 l100,30 q0,100 150,100"/&gt;
+    &lt;/defs&gt;
+
+    &lt;text x="10" y="100" style="stroke: #000; fill: #fff;"&gt;
+        &lt;textPath xlink:href="#camino"&gt;
+            Texto en un path complejo
+        &lt;/textPath&gt;
+    &lt;/text&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg>
+                            <defs>
+    <path id="myTextPath2"
+          d="M75,20 l100,0 l100,30 q0,100 150,100"/>
+</defs>
+
+<text x="10" y="100" style="stroke: #000; fill: #fff;">
+    <textPath xlink:href="#myTextPath2">
+        Texto en un path complejo
+    </textPath>
+</text>
+                        </svg>
+                    </section>
+                    <section>
+                        <h3>Imágenes</h3>
+                        <pre><code>
+&lt;svg&gt;
+    &lt;image x="20" y="20" width="275" height="100"
+    xlink:href="http://bitergia.com/wp-content/themes/bitergia/img/bitergia.png"/&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg>
+                            <image x="20" y="20"  width="275" height="100" xlink:href="http://bitergia.com/wp-content/themes/bitergia/img/bitergia.png"/>
+                        </svg>
+                    </section>
+                    <section>
+                        <h2>Agrupando y referenciando</h2>
+                        <h3><code>g</code> Element</h3>
+                        <pre><code>
+&lt;svg&gt;
+    &lt;g&gt;
+        &lt;line x1="10" y1="10" x2="85" y2="10"
+          style="stroke: #006600;"/&gt;
+        &lt;rect x="10" y="20" height="50" width="75"
+          style="stroke: #006600; fill: #006600"/&gt;
+        &lt;text x="10" y="90" style="stroke: #b50; fill: #b50"&gt;
+        Algunos textos y formas&lt;/text&gt;
+    &lt;/g&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <g>
+      <line x1="10" y1="10" x2="85" y2="10"
+          style="stroke: #006600;"/>
+
+      <rect x="10" y="20" height="50" width="75"
+          style="stroke: #006600; fill: #006600"/>
+
+      <text x="10" y="90" style="stroke: #fff; fill: #b50">
+        Algunos textos y formas</text>
+    </g>
+
+</svg>
+                    </section>
+                    <section>
+                    <h2>Agrupando y referenciando</h2>
+                        <h3><code>defs</code> y <code>use</code> Element</h3>
+                        <pre><code>
+&lt;svg&gt;
+    &lt;defs&gt;
+        &lt;g id="ejemplo"&gt;
+            &lt;line x1="10" y1="10" x2="85" y2="10"
+              style="stroke: #006600;"/&gt;
+            &lt;rect x="10" y="20" height="50" width="75"
+              style="stroke: #006600; fill: #006600"/&gt;
+            &lt;text x="10" y="90" style="stroke: #fff; fill: #b50"&gt;
+            Algunos textos y formas&lt;/text&gt;
+        &lt;/g&gt;
+    &lt;/defs&gt;
+    &lt;use xlink:href="#ejemplo" x="50" y="50" /&gt;
+    &lt;use xlink:href="#ejemplo" x="200" y="300" /&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <g id="ejemplo">
+          <line x1="10" y1="10" x2="85" y2="10"
+              style="stroke: #006600;"/>
+          <rect x="10" y="20" height="50" width="75"
+              style="stroke: #006600; fill: #006600"/>
+          <text x="10" y="90" style="stroke: #fff; fill: #b50">
+            Algunos textos y formas</text>
+        </g>
+    </defs>
+    <use xlink:href="#ejemplo" x="50" y="50" />
+    <use xlink:href="#ejemplo" x="200" y="300" />
+</svg>
+                    </section>
+                    <section>
+                        <h2>Animaciones</h2>
+                        <pre><code>
+&lt;svg&gt;
+    &lt;rect x="10" y="10" height="110" width="110"
+         style="stroke:#f50; fill: #111"&gt;
+        &lt;animateTransform
+            attributeName="transform"
+            begin="0s"
+            dur="10s"
+            type="rotate"
+            from="0 60 60"
+            to="360 60 60"
+            repeatCount="indefinite"
+        /&gt;
+    &lt;/rect&gt;
+&lt;/svg&gt;
+                        </code></pre>
+                        <svg>
+    <rect x="10" y="10" height="110" width="110"
+         style="stroke:#f50; fill: #111">
+        <animateTransform
+            attributeName="transform"
+            begin="0s"
+            dur="10s"
+            type="rotate"
+            from="0 60 60"
+            to="360 60 60"
+            repeatCount="indefinite"
+        />
+    </rect>
+</svg>
+                    </section>
+                    <section>
+                        <h2>Animaciones</h2>
+                        <h3>Tipos</h3>
+                        <pre><code>
+&lt;set&gt;
+&lt;animate&gt;
+&lt;animateColor&gt;
+&lt;animateTransform&gt;
+&lt;animateMotion&gt;
+                        </code></pre>
+                        <h3>Coordinación</h3>
+                        <pre><code>
+&lt;... id="one"
+    /&gt;
+&lt;... id="two"
+    begin="one.end"
+    /&gt;
+&lt;...
+    begin="two.begin+1s" dur="2s" end="one"
+    /&gt;
+                        </code></pre>
+                    </section>
+                    <section>
+                    <h2>Transformaciones</h2>
+                        <pre><code>
+&lt;svg&gt;
+
+    &lt;rect x="50" y="50" height="110" width="110"
+          style="stroke:#000; fill: #f50"
+          transform="translate(30) rotate(45 50 50)"
+            &gt;
+    &lt;/rect&gt;
+    &lt;text x="70" y="100"
+          transform="translate(30) rotate(45 50 50)"&gt;
+          Hola SVG&lt;/text&gt;
+&lt;/svg&gt;
+                        </code></pre>
+<svg>
+
+    <rect x="50" y="50" height="110" width="110"
+          style="stroke:#000; fill: #f50"
+          transform="translate(30) rotate(45 50 50)"
+            >
+    </rect>
+    <text x="70" y="100"
+          transform="translate(30) rotate(45 50 50)">
+          Hola SVG</text>
+</svg>
+                    </section>
+                    <section>
+                        <h2>Transformaciones</h2>
+                        <pre><code>
+translate()
+rotate()
+scale()
+skew()
+matrix()
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>¿Cómo incluir <abbr>SVG</abbr> en tu página/aplicación Web?</h2>
+                        <pre><code>
+&lt;svg&gt;
+...
+&lt;/svg&gt;
+                        </code></pre>
+                        <pre><code>
+&lt;img src="file.svg"&gt;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Referencias</h2>
+                        <ul>
+                            <li><a href="http://www.w3.org/TR/SVG11/"><abbr>SVG</abbr> W3C Recommendation 16 August 2011</a></li>
+                            <li><a href="http://tutorials.jenkov.com/svg/index.html"><abbr>SVG</abbr> Tutorial</a></li>
+                            <li><a href="http://www.w3schools.com/svg/default.asp">SVG en W3Schools</a></li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Creación, edición y manipulación</h1>
+                        <p>¿Cómo crear <abbr>SVG</abbr>?</p>
+                        <ul>
+                            <li>Editando a mano el <abbr>XML</abbr></li>
+                            <li>Con editores gráficos tipo <a href="http://www.inkscape.org/en/">Inkscape</a> (<strong><abbr title="Free, libre, open source software">FLOSS</abbr></strong>), Adobe Illustrator, etc.</li>
+                            <li>Descargándolos de sitios como <a href="http://openclipart.org/">Open Clipart</a></li>
+                            <li>Programáticamente ...</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>
+                            <svg height="100" version="1.1" width="100" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><path fill="#f89938" stroke="none" d="M49.973,94.128C44.760999999999996,94.128,39.86,92.099,36.174,88.411L11.424,63.661C7.734,59.976,5.701,55.074,5.701,49.859C5.701,44.643,7.734,39.74,11.425,36.053000000000004L36.175,11.304000000000006C39.861,7.617000000000006,44.76,5.589000000000006,49.973,5.589000000000006C55.185,5.589000000000006,60.086,7.617000000000006,63.772999999999996,11.303000000000006L88.52199999999999,36.05500000000001C92.21199999999999,39.73800000000001,94.24699999999999,44.641000000000005,94.24699999999999,49.858000000000004C94.24699999999999,55.075,92.21299999999998,59.977000000000004,88.52099999999999,63.663000000000004L63.772,88.411C60.086,92.099,55.185,94.128,49.973,94.128L49.973,94.128Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="#3399ff" stroke="none" d="M33.014,23.398C33.014,14.032,40.607,6.439,49.973,6.439C59.34,6.439,66.932,14.032,66.932,23.398C66.932,32.765,59.34,40.357,49.973,40.357C40.606,40.358,33.014,32.765,33.014,23.398" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="#333333" stroke="none" d="M93.816,61.314C96.046,57.943,97.24600000000001,53.994,97.24600000000001,49.859C97.24600000000001,44.288000000000004,95.07400000000001,39.053000000000004,91.13400000000001,35.121L64.707,8.691L64.69699999999999,8.701C60.92599999999999,4.924,55.71799999999999,2.5840000000000005,49.97199999999999,2.5840000000000005S39.019,4.925,35.249,8.702L35.24,8.692L8.813,35.118C4.872000000000001,39.055,2.7010000000000005,44.290000000000006,2.7010000000000005,49.859C2.7010000000000005,55.427,4.871,60.662000000000006,8.811,64.596L32.64,88.42500000000001C33.595,89.49700000000001,34.599000000000004,90.50000000000001,35.657000000000004,91.42200000000001C39.542,95.10300000000001,44.6,97.12700000000001,49.972,97.12700000000001C55.537,97.12700000000001,60.771,94.96000000000001,64.706,91.02300000000001L90.416,65.31400000000001C90.481,65.25000000000001,90.54599999999999,65.18400000000001,90.61099999999999,65.11900000000001L91.13199999999999,64.59900000000002C92.12499999999999,63.60800000000002,93.005,62.533000000000015,93.767,61.39200000000002C93.785,61.36700000000002,93.804,61.34300000000002,93.823,61.31800000000002L93.816,61.314ZM89.535,49.859C89.535,52.451,88.783,54.925000000000004,87.39099999999999,57.043C86.556,58.183,85.68499999999999,59.179,84.78699999999999,60.04L84.723,60.104C80.496,64.125,75.72,65.264,71.667,65.264C69.437,65.264,67.424,64.91799999999999,65.842,64.51899999999999C56.579,62.17899999999999,46.51,54.20799999999999,41.902,42.58299999999999C44.385,43.63199999999999,47.112,44.21199999999999,49.972,44.21199999999999C60.719,44.21199999999999,69.588,36.02499999999999,70.674,25.56199999999999L85.683,40.56999999999999C88.167,43.053,89.535,46.351,89.535,49.859ZM49.973,10.294C57.2,10.294,63.077,16.173000000000002,63.077,23.398C63.077,30.624,57.199,36.503,49.973,36.503C42.748,36.503,36.87,30.624000000000002,36.87,23.398C36.87,16.173,42.748,10.294,49.973,10.294ZM14.262,59.146C11.779,56.665,10.411000000000001,53.367000000000004,10.411000000000001,49.86C10.411000000000001,46.352,11.778000000000002,43.054,14.261000000000001,40.574L24.415,30.418999999999997C21.765,39.440999999999995,20.627,48.934999999999995,21.237,58.036C21.456,61.307,21.907999999999998,64.44500000000001,22.558,67.44L14.262,59.146ZM31.621,33.206C33.851,50.655,47.663,67.878,63.95399999999999,71.995C66.60799999999999,72.665,69.21,72.995,71.72699999999999,72.995C71.76299999999999,72.995,71.79999999999998,72.992,71.83599999999998,72.992L59.255999999999986,85.57300000000001C56.774999999999984,88.052,53.47799999999999,89.418,49.97199999999999,89.418C47.530999999999985,89.418,45.198999999999984,88.742,43.16699999999999,87.504L43.170999999999985,87.497C42.37099999999999,86.967,41.60899999999999,86.368,40.86799999999999,85.734C40.80999999999999,85.67699999999999,40.74799999999999,85.63,40.69099999999999,85.573L38.14899999999999,83.03099999999999C32.92199999999998,77.02999999999999,29.634999999999987,68.101,28.927999999999987,57.52099999999999C28.393,49.515,29.354,41.167,31.621,33.206" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>Räphael
+                        </h2>
+
+<pre><code>
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="content-type" content="text/html; charset=UTF-8"&gt;
+    &lt;title&gt;Ejemplo&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;div id="paper1"&gt;&lt;/div&gt;
+
+    &lt;script type="text/javascript" src="../raphael-min.js"&gt;&lt;/script&gt;
+
+    &lt;script type="text/javascript"&gt;
+    var paper = Raphael("paper1", 500,500);
+    var rect1 = paper.rect(20,30,100,12).attr({fill: "orange"});
+    &lt;/script&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><a href="http://raphaeljs.com/">Räphaeljs.com</a> (parte de <a href="http://www.sencha.com/">Sencha Labs</a>)</p>
+                    </section>
+                    <section>
+                        <h3>
+<svg height="100" version="1.1" width="100" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><path fill="#f89938" stroke="none" d="M50.261,98.46C44.917,98.46,39.895,96.38,36.117000000000004,92.601L8.167,64.649C4.383,60.871,2.3,55.848,2.3,50.504C2.3,45.157,4.383,40.132,8.167,36.355L36.119,8.401C39.894999999999996,4.625,44.917,2.5439999999999996,50.260999999999996,2.5439999999999996C55.604,2.5439999999999996,60.626999999999995,4.625,64.404,8.399999999999999L92.356,36.355999999999995C96.14,40.132999999999996,98.22399999999999,45.157,98.22399999999999,50.50299999999999C98.22399999999999,55.846999999999994,96.13999999999999,60.87199999999999,92.35499999999999,64.64999999999999L64.404,92.601C60.627,96.38,55.604,98.46,50.261,98.46L50.261,98.46Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><circle cx="50" cy="50" r="27" fill="#3399ff" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="#333333" stroke="none" d="M100.502,50.503C100.502,44.61,98.205,39.073,94.038,34.914L66.085,6.959L66.075,6.97C61.969,2.856,56.314,0.5,50.501,0.5S39.033,2.857,34.928,6.971L34.918,6.961L6.966,34.911C2.843,39.029,0.5019999999999998,44.676,0.5019999999999998,50.503C0.5019999999999998,56.329,2.8419999999999996,61.975,6.965,66.091L32.169,91.29499999999999C33.178999999999995,92.42899999999999,34.241,93.48999999999998,35.36,94.466C39.55,98.43499999999999,45.195,100.613,50.965,100.494C56.628,100.378,62.081,98.048,66.08500000000001,94.043L93.27900000000001,66.851C93.34800000000001,66.783,93.41700000000002,66.713,93.486,66.644L94.036,66.09400000000001C95.108,65.02300000000001,95.987,63.839000000000006,96.882,62.62400000000001L96.875,62.61800000000001C99.233,59.054,100.502,54.877,100.502,50.503ZM77.535,71.065L77.328,71.086L73.512,74.973C73.551,74.973,60.322,88.277,60.322,88.277C55.847,92.75,48.713,93.617,43.304,90.319L43.308,90.312C42.462,89.75,41.656,89.118,40.872,88.447C40.811,88.388,40.745,88.33800000000001,40.685,88.277L28.607,76.202H28.605L12.73,60.327C7.381,54.980999999999995,7.371,46.031,12.728,40.681L23.469,29.940999999999995L23.676000000000002,29.918999999999997L27.493000000000002,26.031999999999996C27.454,26.031999999999996,40.683,12.727999999999996,40.683,12.727999999999996C45.157,8.257,52.292,7.39,57.7,10.688L57.696000000000005,10.695C58.541000000000004,11.256,59.348000000000006,11.888,60.132000000000005,12.559000000000001C60.193000000000005,12.619000000000002,60.258,12.669,60.319,12.729000000000001L72.397,24.805H72.399L88.274,40.679C89.822,42.227000000000004,90.909,44.081,91.562,46.059000000000005L81.108,46.091C78.963,31.101,66.083,19.58,50.5,19.577C33.42,19.58,19.578,33.421,19.575,50.503C19.578,67.584,33.42,81.425,50.5,81.427C66.15,81.426,79.07300000000001,69.804,81.132,54.720000000000006L91.653,54.687000000000005C91.013,56.761,89.894,58.708000000000006,88.275,60.32600000000001L77.535,71.065ZM50.5,54.817C50.504,54.817,50.509,54.817,50.514,54.817L72.381,54.747C70.386,65.024,61.36,72.778,50.5,72.797C38.188,72.776,28.227,62.81399999999999,28.205,50.503C28.228,38.191,38.188,28.23,50.5,28.208C61.311,28.227999999999998,70.306,35.91,72.355,46.117999999999995L50.486000000000004,46.18599999999999C48.103,46.193999999999996,46.178000000000004,48.132999999999996,46.185,50.51499999999999C46.193,52.895,48.124,54.817,50.5,54.817Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>
+gRäpahel</h3>
+<pre><code>
+var r = Raphael(10, 50, 640, 480);
+r.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2]);
+
+</code></pre>
+<p><a href="http://g.raphaeljs.com/">gRäphael</a> (también parte de <a href="http://www.sencha.com">Sencha Labs</a>)</p>
+                    </section>
+                    <section>
+                        <h2>
+                            <svg width="96" height="91" style="position:relative;top:22px;">
+    <linearGradient id="logo-gradient-1" gradientUnits="userSpaceOnUse" x1="37.2417" y1="7.0552" x2="97.9669" y2="67.7803">
+      <stop offset="0" stop-color="#F9A03C"></stop>
+      <stop offset="1" stop-color="#F7974E"></stop>
+    </linearGradient>
+    <linearGradient id="logo-gradient-2" gradientUnits="userSpaceOnUse" x1="-8.0391" y1="17.2148" x2="45.724" y2="70.978">
+      <stop offset="0" stop-color="#F9A03C"></stop>
+      <stop offset="1" stop-color="#F7974E"></stop>
+    </linearGradient>
+    <linearGradient id="logo-gradient-3" gradientUnits="userSpaceOnUse" x1="11.9321" y1="36.5513" x2="66.3901" y2="91.0092">
+      <stop offset="0" stop-color="#F9A03C"></stop>
+      <stop offset="1" stop-color="#F7974E"></stop>
+    </linearGradient>
+    <linearGradient id="logo-gradient-4" gradientUnits="userSpaceOnUse" x1="1.6533" y1="-1.6533" x2="86.899" y2="83.5924">
+      <stop offset="0" stop-color="#F26D58"></stop>
+      <stop offset="1" stop-color="#F9A03C"></stop>
+    </linearGradient>
+    <linearGradient id="logo-gradient-5" gradientUnits="userSpaceOnUse" x1="45.2446" y1="-9.5483" x2="108.0998" y2="53.3068">
+      <stop offset="0" stop-color="#B84E51"></stop>
+      <stop offset="1" stop-color="#F68E48"></stop>
+    </linearGradient>
+    <linearGradient id="logo-gradient-6" gradientUnits="userSpaceOnUse" x1="6.6323" y1="64.3193" x2="49.6788" y2="107.3658">
+      <stop offset="0" stop-color="#F9A03C"></stop>
+      <stop offset="1" stop-color="#F7974E"></stop>
+    </linearGradient>
+    <path fill="url(#logo-gradient-1)" d="M95.82,65.857c0.043-0.418,0.074-0.84,0.098-1.264c0.029-0.502-30.211-29.194-30.211-29.194h-0.723C64.984,35.399,95.635,67.73,95.82,65.857z"></path>
+    <path fill="url(#logo-gradient-2)" d="M31.302,55.904c-0.04,0.088-0.08,0.176-0.121,0.264c-0.043,0.092-0.087,0.184-0.131,0.275c-0.964,2.01,13.495,16.145,14.658,14.428c0.053-0.076,0.106-0.156,0.159-0.232c0.059-0.09,0.117-0.176,0.175-0.266C46.972,68.961,31.715,54.986,31.302,55.904z"></path>
+    <path fill="url(#logo-gradient-3)" d="M51.734,75.781c-0.041,0.09-0.332,0.582-0.598,0.842c-0.045,0.09,14.115,14.133,14.115,14.133h1.275C66.527,90.756,53.234,76.375,51.734,75.781z"></path>
+    <path fill="url(#logo-gradient-4)" d="M95.938,64.338c-0.662,14.68-12.807,26.418-27.645,26.418h-2.006L51.469,76.158c1.219-1.719,2.352-3.5,3.361-5.357h13.463c4.258,0,7.723-3.463,7.723-7.723c0-4.258-3.465-7.723-7.723-7.723h-7.967c0.607-3.209,0.939-6.518,0.939-9.903c0-3.437-0.338-6.793-0.967-10.053h4.949l30.604,30.155C95.887,65.15,95.916,64.746,95.938,64.338z M8.05,0H0v19.955h8.05c14.06,0,25.5,11.437,25.5,25.497c0,3.825-0.853,7.456-2.369,10.716l14.686,14.471c4.822-7.215,7.641-15.877,7.641-25.187C53.508,20.39,33.115,0,8.05,0z"></path>
+    <path fill="url(#logo-gradient-5)" d="M68.293,0H35.695c7.962,4.861,14.555,11.754,19.047,19.955h13.551c4.258,0,7.723,3.463,7.723,7.723c0,4.259-3.465,7.722-7.723,7.722h-3.045l30.604,30.155c0.072-0.818,0.117-1.641,0.117-2.477c0-6.727-2.414-12.898-6.422-17.701c4.008-4.801,6.422-10.973,6.422-17.699C95.969,12.417,83.555,0,68.293,0z"></path>
+    <path fill="url(#logo-gradient-6)" d="M66.287,90.756H35.928C42.039,86.982,47.322,82,51.469,76.158L66.287,90.756z M45.867,70.639L31.182,56.168C27.125,64.887,18.284,70.951,8.05,70.951H0v19.953h8.05C23.804,90.904,37.709,82.846,45.867,70.639z"></path>
+  </svg>
+                            Data-Driven Documents</h2>
+                            <p><a href="http://d3js.org">d3js.org</a></p>
+                            <p><a href="https://github.com/mbostock/d3/wiki/Gallery">Galería</a> de ejemplos</p>
+                    </section>
+                    <section>
+                        <h3>Librerías derivadas de d3js</h3>
+                        <ul>
+                            <li><a href="http://dimplejs.org/">Dimple</a></li>
+                            <li><a href="http://nvd3.org/">NVD3</a></li>
+                            <li><a href="http://code.shutterstock.com/rickshaw/">Rickshaw</a></li>
+                            <li><a href="http://tenxer.github.io/xcharts/">xCharts</a></li>
+                            <li><a href="http://c3js.org/">C3js</a></li>
+                            <li> ... y <a href="http://mikemcdearmon.com/portfolio/techposts/charting-libraries-using-d3">muchas más</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2><img src="images/logo.svg" alt="snap.svg" style="border: none;" height="100"></h2>
+                        <p><a href="http://snapsvg.io/">snapsvg.io</a></p>
+<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Ejemplo&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;svg id="svg"&gt;&lt;/svg&gt;
+        &lt;script src="js/snap.svg-min.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
+        var s = Snap("#svg");
+        var p = s.line(50, 50, 50, 100);
+        p.attr({stroke: '#000', strokeWidth: 5 });
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    </section>
+                    <section>
+                        <h3>Formas básicas</h3>
+                        <pre><code>
+Paper.rect(x,y , with,height , [rx],[ry]);
+Paper.circle(x,y,r);
+Paper.ellipse(x,y,rx,ry);
+Paper.line(x1,y1 , x2,y2);
+Paper.polyline([x1,y1 , x2,y2 , ...]);
+Paper.polygon([x1,y1 , x2,y2 , ...]);
+Paper.path("[path string]");
+Paper.text(x,y, text);
+Paper.image(src, x,y, width,height);
+Paper.g(g1,g2, ...);
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Animaciones y transformaciones</h3>
+                        <pre><code>
+Element.animate(attrs, duration, [easing],[callback]);
+                        </code></pre>
+                        <pre><code>
+Snap.Matrix().translate(x,y);
+Snap.Matrix().rotate(a, cx,cy);
+Snap.Matrix().scale(x,[y],[cx],[cy]);
+Snap.Matrix().add(a,b,c,d,e,f);
+Snap.Matrix().clone();
+Snap.Matrix().invert();
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Pero aún hay más...</h3>
+                        <h4>Carga de svg</h4>
+                        <pre><code>
+Snap.load(file, callback);
+                        </code></pre>
+                        <h4>Manejo del DOM</h4>
+                        <pre><code>
+Element.add(el);
+Element.remove(el);
+Element.select(query);
+Element.append(el);
+Element.prepend(el);
+Element.before(el);
+Element.after(el);
+Element.asPX(attr, [value]);
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h4>Eventos</h4>
+                        <pre><code>
+Element.click(handler);
+Element.unclick(handler);
+Element.dblclick(handler);
+Element.undblclick(handler);
+Element.mousedown(handler);
+Element.unmousedown(handler);
+Element.mousemove(handler);
+Element.unmousemove(handler);
+Element.mouseout(handler);
+Element.unmouseout(handler);
+Element.mouseover(handler);
+Element.unmouseover(handler);
+Element.mouseup(handler);
+Element.unmouseup(handler);
+Element.touchstart(handler);
+Element.untouchstart(handler);
+Element.touchmove(handler);
+Element.untouchmove(handler);
+Element.touchend(handler);
+Element.untouchend(handler);
+Element.touchcancel(handler);
+Element.untouchcancel(handler);
+Element.hover(f_in, f_out, [icontext],[ocontext]);
+Element.unhover(f_in, f_out);
+Element.drag(onmove, onstart, onend, [mcontext], [scontext], [econtext]);
+Element.undrag();
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2><img src="images/logo.svg" alt="snap.svg" style="border: none;" height="100"></h2>
+                        <p>Documentación:</p>
+                        <ul>
+                            <li><a href="http://snapsvg.io/docs/">snap.svg docs</a></li>
+                            <li><a href="http://svg.dabbles.info/">snap.svg examples and tutorials</a></li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <h1>... esto es todo!</h1>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="revealjs/lib/js/head.min.js"></script>
+        <script src="revealjs/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                slideNumber: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

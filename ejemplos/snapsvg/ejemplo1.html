@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ejemplo 1</title>
+    </head>
+    <body>
+        <svg id="svg">
+        </svg>
+
+        <script src="js/snap.svg-min.js"></script>
+        <script>
+            var paper = Snap("#svg");
+
+            var l = paper.line(50,50 , 50,100);
+            //l.attr({stroke: '#f00', strokeWidth: 5 });
+
+            var r = paper.rect(10,10, 150,50, 10);
+            //r.attr({stroke: '#000', strokeWidth: 5, fill: '#f50'});
+
+            var agrupado = paper.group(l,r);
+            agrupado.attr({stroke: '#aaa', fill: '#f50'});
+        </script>
+    </body>
+</html>
