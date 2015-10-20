@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ejemplo 4</title>
+    </head>
+    <body>
+        <svg id="svg" width="400px" height="400px">
+        </svg>
+
+         <script src="js/snap.svg-min.js"></script>
+
+        <script>
+            var s = Snap("#svg");
+            var g = s.group();
+
+            Snap.load("svg/bitergia-owl-2.svg", function (loadedFragment) {
+                g.append(loadedFragment);
+                g.hover(hoverover, hoverout);
+            } );
+
+            var hoverover = function() {g.animate({transform: 's3,0,0'}, 2000)};
+            var hoverout = function() {g.animate({transform: 's1,0,0'}, 2000, mina.elastic)};
+
+        </script>
+
+    </body>
+</html>
