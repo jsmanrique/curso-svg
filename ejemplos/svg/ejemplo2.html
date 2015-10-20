@@ -1,11 +1,27 @@
 <!doctype html>
 <html>
     <head>
+      <meta charset="UTF-8">
         <title>Ejemplo 2</title>
+        <style>
+            #rectangulo {
+                fill: #00f;
+                stroke-width: 1;
+                stroke: #000;
+            }
+        </style>
     </head>
     <body>
+      <h1>Ejemplos de formas básicas</h1>
+      <h2>Rectángulo</h2>
         <svg>
-            <rect width="180" height="180" fill="rgb(234,234,234)" stroke-width="1" stroke="rgb(0,0,0)"/>
+            <rect id="rectangulo" width="180" height="180"/>
         </svg>
+
+        <h2>Círculo</h2>
+        <svg height="180" width="180">
+          <circle cx="90" cy="90" r="90" fill="rgba(234,234,234,0.3)" stroke-width="1" stroke="rgb(0,0,0)"/>
+        </svg>
+        
     </body>
 </html>

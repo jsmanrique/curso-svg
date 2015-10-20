@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+      <meta charset="UTF-8">
         <title>Ejemplo 5</title>
         <style>
             rect {
@@ -12,34 +13,41 @@
         </style>
     </head>
     <body>
-        <h1><code>translate()</code><h1>
+        <h1>Transformaciones</h1>
+
+        <h2><code>translate()</code><h2>
+
         <svg height="150" width="600">
             <rect x="10" y="10" height="110" width="110"
-                transform="translate(40,10)"
+                transform="translate(40,100)"
                 />
             </rect>
         </svg>
 
-        <h1><code>rotate()</code><h1>
+        <h2><code>rotate()</code><h2>
+
         <svg height="150" width="600">
             <rect x="10" y="10" height="110" width="110"
-                transform="rotate(45)"
+                transform="rotate(30 10 20)"
                 />
             </rect>
         </svg>
 
-        <h1><code>scale()</code><h1>
+
+        <h2><code>scale()</code><h2>
+
         <svg height="150" width="600">
             <rect x="10" y="10" height="110" width="110"
-                transform="scale(2)"
+                transform="scale(2,1)"
                 />
             </rect>
         </svg>
 
-        <h1><code>skew()</code><h1>
+        <h2><code>skew()</code><h2>
+
         <svg height="150" width="600">
             <rect x="10" y="10" height="110" width="110"
-                transform="skewX(30)"
+                transform="skewY(30)"
                 />
             </rect>
         </svg>

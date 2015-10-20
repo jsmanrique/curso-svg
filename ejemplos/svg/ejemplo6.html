@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+        <title>Ejemplo 6</title>
+    </head>
+    <body>
+      <h1>Agrupaciones</h1>
+      <svg height="500" width="600">
+        <defs>
+        <g id="ejemplo">
+            <line x1="10" y1="10" x2="85" y2="10"
+              style="stroke: #006600;"/>
+            <rect x="10" y="20" height="50" width="75"
+              style="stroke: #006600; fill: #006600"/>
+            <text x="10" y="90" style="stroke: #000; fill: #b50; font-family: sans-serif;">
+            Algunos textos y formas</text>
+        </g>
+        </defs>
+        <use xlink:href="#ejemplo" x="50" y="50" />
+        <use xlink:href="#ejemplo" x="200" y="300" />
+    </svg>
+    </body>
+</html>
