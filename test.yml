@@ -1,13 +1,13 @@
 ---
 tlf:
   meta:
-    title: "The Linux Foundation"
+    title: The Linux Foundation
 hyperledger:
   meta:
-    title: "Hyperledger"
+    title: Hyperledger
     logo: .http
-   github:
-    owner: sanacl
-   github:
-    owner: grimoire
-      repository: perceval
+  github:
+    - http://github.com/sanacl:
+    	 ignore: 
+        - testing
+        - ci
