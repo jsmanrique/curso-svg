@@ -5,3 +5,5 @@ tlf:
 hyperledger:
   meta:
     title: "Hyperledger"
+    logo: .http
+   git:
