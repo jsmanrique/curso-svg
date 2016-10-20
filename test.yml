@@ -6,4 +6,8 @@ hyperledger:
   meta:
     title: "Hyperledger"
     logo: .http
-   git:
+   github:
+    owner: sanacl
+   github:
+    owner: grimoire
+      repository: perceval
