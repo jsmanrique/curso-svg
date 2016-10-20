@@ -5,7 +5,10 @@ tlf:
 hyperledger:
   meta:
     title: Hyperledger
-    logo: .http
+    logo: http://
+  git:
+    - https://gerrit.hyperledger.org/r/#/admin/projects/
+    - https://git.openswitch.net/cgit
   github:
     - http://github.com/sanacl:
         ignore: 
