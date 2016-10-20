@@ -8,6 +8,6 @@ hyperledger:
     logo: .http
   github:
     - http://github.com/sanacl:
-      ignore: 
-        - testing
-        - ci
+        ignore: 
+          - testing
+          - ci
